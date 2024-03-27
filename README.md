@@ -1,3 +1,9 @@
+# IMPORTANTE
+
+Para ejecutar pruebas:
+* Ejecutar features files
+* Si no funciona, ejecutar mvn clean, seguido de mvn compile y finalmente mvn test
+
 # Selenium Cucumber Framework
 
 ---
