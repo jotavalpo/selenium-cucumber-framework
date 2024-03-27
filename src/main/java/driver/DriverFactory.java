@@ -35,7 +35,7 @@ public class DriverFactory {
         WebDriver driver = null;
 
         //System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/java/driver/drivers/Chrome/" + pathDirDriverChromeOS());
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().clearDriverCache().setup();
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
         ChromeOptions chromeOptions = new ChromeOptions();
