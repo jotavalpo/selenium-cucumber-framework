@@ -62,6 +62,14 @@ public class Base_PO {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.DEFAULT_TIMEOUT));
         wait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(textToType);
     }
+
+    /**
+     * Limpiar y luego enviar valores a un WebElement
+     *
+     * @param element - Webelement con el que se quiere interactuar
+     * @param textToType - texto que se desea escribir
+     **/
+
     public void clearAndsendKeys(WebElement element, String textToType) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.DEFAULT_TIMEOUT));
         wait.until(ExpectedConditions.elementToBeClickable(element)).clear();
@@ -69,7 +77,7 @@ public class Base_PO {
     }
 
     /**
-     * Espera por un elemento hasta que sea clickeable, y luego hace click
+     * Espera por un elemento By hasta que sea clickeable, y luego hace click
      *
      * @param by - selector de cualquier tipo (Xpath, ClassName, etc...)
      **/
@@ -99,6 +107,14 @@ public class Base_PO {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    /**
+     * Espera por un elemento By hasta que sea clickeable
+     *
+     * @param timeoutInSeconds tiempo máximo en segundos que se esperará por el elemento
+     * @param by - selector de cualquier tipo (Xpath, ClassName, etc...)
+     * @return
+     */
 
     public void waitForElementClickeable (By by, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeoutInSeconds));
@@ -167,11 +183,19 @@ public class Base_PO {
         return isPresent;
     }
 
+    /**
+     * Espera por una alerta hasta que esté presente y la acepta
+     **/
+
     public void waitForAlertAndAccept () {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.DEFAULT_TIMEOUT));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();
     }
+
+    /**
+     * Realiza espera explícita (usar solo para probar)
+     **/
 
     public void esperaImplicita (int tiempo) throws InterruptedException {
         Thread.sleep(tiempo);
@@ -215,7 +239,7 @@ public class Base_PO {
     }
 
     /**
-     * Sroll hasta final de pagina
+     * Sroll hasta cierto punto de pagina usando Javascript
      */
     public void scrollFinalVentana() {
         ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,500)");
@@ -223,16 +247,24 @@ public class Base_PO {
 
     /**
      * scrollElement, realiza scroll de pagina en donde se encuentra objeto
-     *
      * @param element WebElement donde se realizara el Scroll
      */
     public void scrollElement(WebElement element) {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", element);
     }
 
+    /**
+     * scrollBy, realiza scroll de pagina en donde se encuentra objeto
+     * @param by - selector de cualquier tipo (Xpath, ClassName, etc...)
+     */
+
     public void scrollElement(By by) {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", by);
     }
+
+    /**
+     * Sroll hasta final de pagina usando Javascript
+     */
 
     public void scrollDownPage() {
         ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0, 1000);");
@@ -267,6 +299,13 @@ public class Base_PO {
         }
         return texto;
     }
+
+    /**
+     * obtenerValorElemento, retorna el texto de un elemento
+     *
+     * @param element WebElement que se obtendra el texto
+     * @return String
+     */
 
     public String obtenerValorElemento(WebElement element) {
         String texto = "";
@@ -479,6 +518,15 @@ public class Base_PO {
         }
     }
 
+    /**
+     * existWebElement</br>
+     *
+     * Comprueba si elemento existe en la vista
+     *
+     * @param element WebElement a verificar
+     * @return boolean
+     **/
+
     public Boolean existWebElement(WebElement elementoLista, By element) throws InterruptedException {
         boolean isPresent = false;
         try {
@@ -491,6 +539,15 @@ public class Base_PO {
 
         return isPresent;
     }
+
+    /**
+     * getParentNode</br>
+     *
+     * Obtener el parent node del DOM
+     *
+     * @param element WebElement a verificar
+     * @return obj
+     **/
 
     public WebElement getParentNode(WebElement element) {
         WebElement obj = null;
@@ -542,6 +599,13 @@ public class Base_PO {
         }
     }
 
+    /**
+     * highlightElement</br>
+     *
+     * Permite marcar en amarillo el elemento que se esta interactuando
+     *
+     * @param by a usar
+     **/
     public void highlightElement(By by) throws Exception {
         try {
             WebElement element = getDriver().findElement(by);
@@ -553,6 +617,14 @@ public class Base_PO {
         }
     }
 
+    /**
+     * highlightElement</br>
+     *
+     * Permite marcar en amarillo el elemento que se esta interactuando
+     *
+     * @param element a usar
+     **/
+
     public void highlightElement(WebElement element) throws Exception {
         try {
             scrollElement(element);
@@ -562,6 +634,13 @@ public class Base_PO {
             // TODO: handle exception
         }
     }
+
+    /**
+     * acceptAlert</br>
+     *
+     * Permite aceptar una alerta emergente
+     *
+     **/
 
     public void acceptAlert() {
 
@@ -617,7 +696,7 @@ public class Base_PO {
 
     }
 
-    /*
+    /**
      * Ingresa una cadena en un elemento calendario
      */
     public void ingresaCalendario(WebElement element, String fecha) {
@@ -763,15 +842,39 @@ public class Base_PO {
 
     }
 
+    /**
+     * getRutaLocal</br>
+     *
+     * Permite obtener la ruta del usuario
+     *
+     * @return userHome
+     **/
+
     public Path getRutaLocal() {
         Path userHome = Paths.get(System.getProperty("user.home"));
         return userHome;
     }
 
+    /**
+     * getRutaDownloads</br>
+     *
+     * Permite obtener la ruta del usuario pasandole el userHome
+     * @param userHome
+     * @return dowloads
+     **/
+
     public Path getRutaDownloads(Path userHome) {
         Path downloads = userHome.resolve("Downloads");
         return downloads;
     }
+
+    /**
+     * uploadfile</br>
+     * @param element
+     * @param rutaArchivo
+     * Permite subir un archivo en base a la ruta definida
+     *
+     **/
 
     public void uploadfile(String rutaArchivo, WebElement element) {
         File rutaArchivoSubir = new File(rutaArchivo);
@@ -779,13 +882,27 @@ public class Base_PO {
 
     }
 
+    /**
+     * getRutaRelativa</br>
+     *
+     * Permite obtener la ruta relativa
+     * @return getRutaDownloads
+     **/
+
     public Path getRutaRelativaDownloads() {
 
         String Ruta = getRutaDownloads(getRutaLocal()).toString();
         System.out.println("Ruta Relativa: " + Ruta);
-        return getRutaDownloads(getRutaLocal());
+        return (getRutaLocal());
 
     }
+
+    /**
+     * clearDirectory</br>
+     *
+     * Permite eliminar los archivos de un diretorio
+     * @param path
+     **/
 
     public void clearDirectory(Path path) {
 
@@ -807,108 +924,51 @@ public class Base_PO {
 
     }
 
+    /**
+     * waitForIframeAndSwitchTo</br>
+     *
+     * Permite esperar por un iframe y moverse a él
+     * @param element
+     **/
+
     public void waitForIframeAndSwitchTo(WebElement element) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.SHORT_TIMEOUT));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
     }
 
-
     /**
-     * ESTOS METODOS DEBERIAN MOVERSE DE LUGAR - SERGIO LOPEZ
-     * Encuentra los toast que aparecen en la parte superior derecha de la pantalla, y los cierra
-     */
-    public void determinaNotificacionConProgressBarPresente() {
-
-        try {
-            List<WebElement> closeButtonProcessWithProgressBar = getAllTestObjectsWithXpath("//div[@class='noty_close_button']");
-            for (WebElement notification : closeButtonProcessWithProgressBar) {
-                if (notification.isDisplayed()) {
-                    try {
-                        notification.click();
-                    } catch (Exception e) {
-
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    public void determinaMensajeHeaderPresente() {
-        try {
-            List<WebElement> closeButtonAlertHeader = getAllTestObjectsWithXpath("//*[@id='beamerAnnouncementBar']/div[2]/div[2]");
-            for (WebElement notification : closeButtonAlertHeader) {
-                if (notification.isDisplayed()) {
-                    try {
-                        notification.click();
-                    } catch (Exception e) {
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * ESTOS METODOS DEBERIAN MOVERSE DE LUGAR - SERGIO LOPEZ
-     */
-    public void determinaNotificacionNuevaFuncionalidadPresente() {
-
-       /* WebElement closeButtonNewAdvert = getDriver().findElement(By.xpath("//*[@class='beamerClose']"));
-
-        if (isVisibleElement(5, getDriver().findElement((By) closeButtonNewAdvert))) {
-
-            cerrarNotificacionNuevaFuncionalidad();
-
-        }else {
-
-        }*/
-
-    }
-
-    /**
-     * ESTOS METODOS DEBERIAN MOVERSE DE LUGAR - SERGIO LOPEZ
-     */
-    public void cerrarNotificacionConProgressBar() {
-
-        WebElement closeButtonProcessWithProgressBar = getDriver().findElement(By.xpath("//div[@class='noty_close_button']"));
-        closeButtonProcessWithProgressBar.click();
-
-    }
-
-    /**
-     * ESTOS METODOS DEBERIAN MOVERSE DE LUGAR - SERGIO LOPEZ
-     */
-    public void cerrarNotificacionNuevaFuncionalidad() {
-
-        WebElement closeButtonProcessWithProgressBar = getDriver().findElement(By.xpath("//*[@class='beamerClose']"));
-        closeButtonProcessWithProgressBar.click();
-
-    }
-
-    public void refreshPage(){
-        getDriver().navigate().refresh();
-    }
-
-
+     * selectOptionByValue</br>
+     *
+     * Usando By, seleccionar una opcion de una lista dropdown, pasandole el valor de dicho listado
+     * @param dropdownLocator
+     * @param value
+     **/
     public void selectOptionByValue(By dropdownLocator, String value) {
         WebElement dropdownElement = getDriver().findElement(dropdownLocator);
         Select dropdown = new Select(dropdownElement);
         dropdown.selectByValue(value);
     }
 
+    /**
+     * selectOptionByValue</br>
+     *
+     * Usando WebElement, seleccionar una opcion de una lista dropdown, pasandole el valor de dicho listado
+     * @param dropDownElement
+     * @param value
+     **/
 
     public void selectOptionByValue(WebElement dropDownElement, String value) {
         Select dropdown = new Select(dropDownElement);
         dropdown.selectByValue(value);
     }
 
+    /**
+     * waitForElementVisible</br>
+     *
+     * Esperar por un elemento
+     * @param locator
+     * @param timeoutInSeconds
+     **/
     public void waitForElementVisible(By locator, int timeoutInSeconds) {
         try {
             WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeoutInSeconds));
@@ -916,6 +976,15 @@ public class Base_PO {
         } catch (TimeoutException e) {
         }
     }
+
+    /**
+     * waitForElementVisible</br>
+     *
+     * Esperar por un elemento
+     * @param element
+     * @param timeoutInSeconds
+     * @return boolean
+     **/
 
     public boolean waitForElementVisible(WebElement element, int timeoutInSeconds) {
         try {
@@ -927,11 +996,23 @@ public class Base_PO {
         }
     }
 
+    /**
+     * getText</br>
+     *
+     * Obtener el texto de un elemento by
+     * @param locator
+     *
+     **/
     public String getText(By locator) {
         return getDriver().findElement(locator).getText();
     }
 
-
+    /**
+     * waitForPageLoad</br>
+     *
+     * Esperar que la página cargue
+     *
+     **/
 
     public void waitForPageLoad() {
 
@@ -944,26 +1025,14 @@ public class Base_PO {
         wait.until(pageLoadCondition);
     }
 
-    public void closeNotificationsWithProgressBar() {
-        try {
-            // Encuentra todas las notificaciones con un botón de cierre usando el WebDriver
-            List<WebElement> closeButtonProcessWithProgressBar = getDriver().findElements(By.xpath("//div[@class='noty_close_button']"));
-            // Itera sobre cada notificación encontrada
-            for (WebElement notification : closeButtonProcessWithProgressBar) {
-                // Si la notificación está visible, intenta cerrarla
-                if (notification.isDisplayed()) {
-                    try {
-                        notification.click();
-                    } catch (ElementClickInterceptedException e) {
-                        // El elemento no es clickeable, puedes manejar este caso aquí si es necesario
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Imprime cualquier excepción en la consola
-            e.printStackTrace();
-        }
-    }
+    /**
+     * verifyElementVisible</br>
+     *
+     * Verificar si el element se encuentra visible
+     * @param element
+     * @param timeoutInSeconds
+     * @return boolean
+     **/
 
     public boolean verifyElementVisible(WebElement element, int timeoutInSeconds) {
         try {
@@ -975,16 +1044,40 @@ public class Base_PO {
         }
     }
 
+    /**
+     * selectOptionByText</br>
+     *
+     * Seleccionar una opción de la lista usando el atributo Text
+     * @param dropDownElement
+     * @param text
+     **/
+
     public void selectOptionByText(WebElement dropDownElement, String text) {
         Select dropdown = new Select(dropDownElement);
         dropdown.selectByVisibleText(text);
     }
+
+    /**
+     * uploadfileAndReplace</br>
+     *
+     * Atachar arhcivo reemplazando el actual
+     * @param rutaArchivo
+     * @param element
+     **/
     public void uploadfileAndReplace(String rutaArchivo, WebElement element) {
         File rutaArchivoSubir = new File(rutaArchivo);
         String rutaArchivoModificada = rutaArchivoSubir.getAbsolutePath().replace("/", "\\");
         element.sendKeys(rutaArchivoModificada);
 
     }
+
+    /**
+     * sendKeysAndEnter</br>
+     *
+     * Permite ingresar un texto en el input y luego dar enter
+     * @param element
+     * @param textToType
+     **/
 
     public void sendKeysAndEnter(WebElement element, String textToType) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.DEFAULT_TIMEOUT));
@@ -993,29 +1086,20 @@ public class Base_PO {
         element.sendKeys(textToType);
         element.sendKeys(Keys.ENTER);
     }
+
+    /**
+     * sendEnter</br>
+     *
+     * Permite presionar la tecla Enter
+     * @param element
+     **/
+
     public void sendEnter(WebElement element) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(Constants_Vars.DEFAULT_TIMEOUT));
         wait.until(ExpectedConditions.visibilityOf(element));
         new Actions(getDriver())
                 .sendKeys(Keys.ENTER)
                 .perform();
-    }
-
-
-    public String getAtributeID(WebElement element){
-        return element.getAttribute("id");
-    }
-    public boolean isInvisibleElement(WebElement element, long timeoutInSeconds) {
-        boolean isInvisible  = true;
-
-        try {
-            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeoutInSeconds));
-            wait.until(ExpectedConditions.invisibilityOf(element));
-        } catch (Exception e) {
-            isInvisible = false;
-        }
-
-        return isInvisible;
     }
 
 }

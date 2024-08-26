@@ -16,5 +16,17 @@ public class Constants_Vars {
     public static final String SELENIUM_GRID_URL_FORMAT = "selenium.grid.urlFormat";
     public static final String SELENIUM_GRID_HUB_HOST = "selenium.grid.hubHost";
 
+    /*** Constantes para crear cuenta ***/
+
+    public static final String REGISTER_FIRST_NAME = "Test";
+    public static final String REGISTER_LAST_NAME = "QA";
+    public static final String REGISTER_PHONE = "987654321";
+    public static final String REGISTER_PASSWORD = "123456";
+
+    /*** Constantes para login ***/
+
+    public static final String USER_EMAIL = "jorge.montero.ayala@gmail.com";
+    public static final String USER_PASSWORD = "I1e3a4s5g6";
+
 }
 

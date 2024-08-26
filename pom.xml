@@ -89,7 +89,7 @@
                     <systemPropertyVariables>
                         <browser>chrome</browser>
                         <selenium.grid.enabled>false</selenium.grid.enabled>
-                        <base.url>https://staging.buk.cl/</base.url>
+                        <base.url>https://opencart.abstracta.us/index.php?route=common/home</base.url>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/java/runners/testng/testng.xml</suiteXmlFile>
