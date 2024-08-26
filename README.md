@@ -1,62 +1,22 @@
-# IMPORTANTE
+# Selenium Cucumber Framework - Creado por Jorge Montero Ayala
 
-Para ejecutar pruebas:
-* Ejecutar features files
-* Si no funciona, ejecutar mvn clean, seguido de mvn compile y finalmente mvn test
+# Tecnologías usadas
+* Framework creado con Maven, Selenium 4, TestNG, CucumberBDD en lenguaje Java (JDK 17.0.9)
+* Optimizado para ejecutarse en IntelliJ (podría tambien funcionar en VSCode)
 
-# Selenium Cucumber Framework
+# Estructura
 
----
+* Tiene la carpeta main que contiene los page objects, driver y utilidades usadas
+* Tiene la carpeta test donde esta el runner, step definitions, features y el archivo con las credenciales usadas para el login
+* Posee archivo .gitignore con las carpetas y archivos a omitir al compilar y ejecutar pruebas
 
-## Project Purpose
-This project aims to give an inspiring or sample of automation test framework that uses Selenium and Cucumber with Java as the programming language.
+# Pre-requisitos
+* IntelliJ Community Edition o similar (version usada 2023.1.2)
+* Tener instalado JDK 17.0.9 y variables de entorno configuradas
+* Tener instalado Apache Maven (versión usada 3.9.2) y variables de entorno configuradas
+* Extensiones requeridas por IntelliJ como CSVReader, entre otras
 
-You can see pieces of framework components that build on every git branch.
-For example, you want to see how `Hooks` is implemented in the framework.
-Just select the `Hooks` branch then you will see the magic.
-
-![select branch](https://github.com/yazidisme/image-attachment/blob/master/seleniumcucumberframework1.png)
-
-If you want to go back to the current branch, you can select `main` as the default branch.
-
----
-
-## Tools and Libraries
-This project using 2 main tools, Selenium and Cucumber.
-On the other hand, I using some of the tools that support this great framework.
-The complete list of tools, you can see in the `pom.xml` file.
-
-## Requirements
-* Java Development Kit
-* Maven
-* WebDriver, using ChromeDriver
-
-## Running Tests
-* Clone the repository from your fork to this directory
-* Open the project using any Java IDE
-* Run the tests with the script below
-```shell
-$ mvn clean install
-```
-* If you want to run the specific test, use the cucumber tags like this
-```shell
-$ mvn clean install -Dcucumber.filter.tags="@REPLACE_WITH_ANY_TAGS_THAT_YOU_WANT"
-```
-
-## Test Results
-* Test report automatically generated on `target` folder after finished the test execution
-* See test report from `target/cucumber-reports/advanced-reports/cucumber-html-reports/overview-features.html`
-* You can also share your Cucumber Report with another person at https://reports.cucumber.io, just go to `src/test/resources/cucumber.properties` then change the value to be `true`
-```properties
-cucumber.publish.enabled=true
-```
-* For more information about reports cucumber you can go to https://reports.cucumber.io/docs/cucumber-jvm
-
----
-
-### References
-* https://cucumber.io/docs/installation/java/
-* https://www.selenium.dev/documentation/en/
-* https://www.toolsqa.com/cucumber-automation-framework/
-* https://www.w3schools.com/java/
-* https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html
+# Para ejecutar pruebas:
+* Ejecutar limpieza de proyecto con comandos Maven (mvn clean, mvn compile y mvn test)
+* Luego abrir clase MainRunner y ejecutar el metodo "public class MainRunner extends AbstractTestNGCucumberTests", deberia tener el icono play en verde para ejecutar todos los casos de pruebas
+* También se puede ejecutar cada feature y/o escenario de manera individual, esto presionando el botón de ejecucion (doble play verde en cada escenario)

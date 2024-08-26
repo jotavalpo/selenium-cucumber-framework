@@ -1,12 +1,54 @@
 package utils;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.text.Normalizer;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 public class HelperMethods {
+
+    /**
+     * Permite leer el contenido de un archivo csv
+     */
+
+    public static List<String[]> readCsv(String filePath) throws IOException, CsvException {
+        CSVReader reader = new CSVReader(new FileReader(filePath));
+        List<String[]> records = reader.readAll();
+        reader.close();
+        return records;
+    }
+
+    /**
+     * Tomar capturas de pantalla
+     */
+
+    public static void takeScreenshot(WebDriver driver, String stepName) {
+        // Obtener la captura de pantalla como un archivo
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        // Crear el nombre del archivo con la fecha y nombre del step
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String screenshotName = stepName + "_" + timestamp + ".png";
+
+        // Especificar la ruta para guardar la captura de pantalla
+        File destinationFile = new File("target/screenshots/" + screenshotName);
+
+        try {
+            // Guardar la captura de pantalla en la ruta especificada
+            FileUtils.copyFile(screenshot, destinationFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Devolver path con rutas ya configuradas para Chrome
@@ -177,7 +219,6 @@ public class HelperMethods {
             }
         }
     }
-
 
 }
 

@@ -38,6 +38,14 @@ public class Home_PO extends Base_PO {
     private @FindBy(xpath = "//strong[contains(.,'View Cart')]")
     WebElement link_viewCart;
 
+    //Botón Shopping Cart del Home
+    private @FindBy(xpath = "(//i[@class='fa fa-shopping-cart'])[1]")
+    WebElement btn_shoppingCart;
+
+    //Opción Checkout de carrito Home
+    private @FindBy(xpath = "//strong[contains(.,'Checkout')]")
+    WebElement link_checkout;
+
     public void buscarProducto(String producto) {
         waitForWebElementAndClick(input_search);
         sendKeys(input_search, producto);
@@ -63,6 +71,20 @@ public class Home_PO extends Base_PO {
     public void entrarACarrito() {
         waitForWebElementAndClick(btn_cartItems);
         waitForWebElementAndClick(link_viewCart);
+
+    }
+
+    public void iralCarrito() {
+        waitForWebElementAndClick(btn_cartItems);
+        waitForElementVisible(link_viewCart, 5);
+        link_viewCart.click();
+
+    }
+
+    public void iralCheckout() {
+        waitForWebElementAndClick(btn_cartItems);
+        waitForElementVisible(link_checkout, 5);
+        waitForWebElementAndClick(link_checkout);
 
     }
 
